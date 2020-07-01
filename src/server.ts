@@ -1,14 +1,10 @@
 import Koa from 'koa';
-import Router from 'koa-router';
+
+import UserRouter from './route/user';
 
 const app = new Koa();
-const router = new Router();
 
-router.all('/', async (ctx) => {
-  ctx.body = 'hello word';
-});
-
-app.use(router.routes());
+app.use(UserRouter.routes());
 
 app.listen(3000, '127.0.0.1');
 

@@ -1,0 +1,5 @@
+export default class User {
+  readonly id: number;
+  readonly name: string;
+  readonly age: number;
+}
