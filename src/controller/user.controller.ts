@@ -1,4 +1,5 @@
-import User from '../dto/userDto';
+import User from '../dto/user.dto';
+import { CreateUser } from '../interface/user.interface';
 
 class UserController {
   static async getUserById(id: number): Promise<User> {
@@ -7,6 +8,10 @@ class UserController {
       age: 12,
       id,
     };
+  }
+
+  static async createUser(user: CreateUser): Promise<Boolean> {
+    return !!user;
   }
 }
 

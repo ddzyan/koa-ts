@@ -1,9 +1,10 @@
 import Koa from 'koa';
+import parser from 'koa-body';
 
 import UserRouter from './route/user';
 
 const app = new Koa();
-
+app.use(parser());
 app.use(UserRouter.routes());
 
 app.listen(3000, '127.0.0.1');

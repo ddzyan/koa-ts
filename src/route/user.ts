@@ -1,16 +1,26 @@
 import Router from 'koa-router';
 
-import UserController from '../controller/userController';
+import UserController from '../controller/user.controller';
+import { CreateUser } from '../interface/user.interface';
 
-const UserRouter: Router = new Router({
+const userRouter: Router = new Router({
   prefix: '/user',
 });
 
-UserRouter.get(
-  '/id',
+userRouter.get(
+  '/:id',
   async (ctx, next): Promise<void> => {
-    ctx.body = await UserController.getUserById(1);
+    const { id } = ctx.params;
+    ctx.body = await UserController.getUserById(Number.parseInt(id));
   }
 );
 
-export default UserRouter;
+userRouter.post(
+  '/',
+  async (ctx, next): Promise<void> => {
+    const user: CreateUser = ctx.request.body;
+    ctx.body = await UserController.createUser(user);
+  }
+);
+
+export default userRouter;
