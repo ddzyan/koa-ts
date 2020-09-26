@@ -1,11 +1,6 @@
 ## 简介
 
-使用 ts + koa 完善后台服务
-
-完善内容：
-
-1. dto:data transfer object
-2. interface:接口数据结构定义
+使用 ts 和 Ioc 在 koa2 上完成服务端功能开发
 
 ## 使用
 
@@ -16,11 +11,6 @@ yarn start
 ```
 
 ### 直接调试 ts
-
-```shell
-yarn add typescript --save-dev
-yarn add ts-node --save-dev
-```
 
 添加 vscode launch.json 文件
 
