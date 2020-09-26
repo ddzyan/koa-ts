@@ -6,7 +6,7 @@
   "scripts": {
     "start": "tsc && node dist/server.js",
     "watch-server": "nodemon --watch 'src/**/*' -e ts,tsx --exec 'ts-node' ./src/server.ts",
-    "build-ts": "tsc",
+    "build": "tsc",
     "watch-ts": "tsc -w"
   },
   "author": "",
