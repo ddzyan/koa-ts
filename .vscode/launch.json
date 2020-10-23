@@ -1,14 +1,22 @@
 {
-  "version": "0.2.0",
+  "version": "1.0.0",
   "configurations": [
     {
-      "name": "Current TS File",
+      "name": "koa2",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceRoot}/node_modules/ts-node/dist/bin.js",
-      "args": ["${relativeFile}"],
+      "program": "${workspaceRoot}/src/server.ts",
+      "stopOnEntry": false,
+      "args": [],
       "cwd": "${workspaceRoot}",
-      "protocol": "inspector"
+      "outFiles": ["${workspaceRoot}/dist/**/*.js"],
+      "runtimeExecutable": "nodemon",
+      "runtimeArgs": ["--nolazy"],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "sourceMaps": true,
+      "restart": true
     }
   ]
 }

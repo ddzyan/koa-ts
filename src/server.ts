@@ -1,14 +1,19 @@
-debugger;
 import Koa from 'koa';
-import parser from 'koa-body';
 
-import userRouter from './route/user';
-import indexRoute from './route';
+import initLoad from './common/initLoad';
+import { server } from './config';
+import HomeRouter from './router/home';
 
 const app = new Koa();
-app.use(parser());
-app.use(userRouter.routes()).use(indexRoute.routes());
 
-app.listen(3000, '127.0.0.1');
+initLoad(app);
 
-console.log('Server running on port 3000');
+app.use(HomeRouter.routes());
+
+app.use(HomeRouter.allowedMethods());
+
+app.listen(server.port, server.hostname, () => {
+  console.log(`Listening on ${server.port}`);
+});
+
+export default app;
