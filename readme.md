@@ -69,10 +69,9 @@ npm install
 
 ### 启动
 
-````sh
+```sh
 # 启动tsc编译监控
 npm run build
 ```
 
 点击 vscode 默认 debug 键, enjoy!
-````
