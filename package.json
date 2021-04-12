@@ -4,10 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node dist/server.js",
-    "watch-server": "nodemon --watch 'src/**/*' -e ts,tsx --exec 'ts-node' ./src/server.ts",
-    "build": "tsc",
-    "watch-ts": "rimraf ./dist && tsc -w"
+    "dev": "tsnd --respawn ./src/server.ts",
+    "build": "tsc"
   },
   "author": "",
   "license": "ISC",
@@ -27,9 +25,7 @@
     "@typescript-eslint/eslint-plugin": "^4.21.0",
     "@typescript-eslint/parser": "^4.21.0",
     "eslint": "^7.24.0",
-    "nodemon": "^2.0.7",
     "prettier": "^2.2.1",
-    "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
   }
 }
