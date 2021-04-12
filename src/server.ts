@@ -10,10 +10,13 @@ import { RouteDefinition, PATH, PREFIX } from './decorator/RouteDefinition';
 import initLoad from './common/initLoad';
 import { server } from './config';
 import HomeRouter from './router/home';
+import { getMyPropertyDecoratorValues } from './decorator/Router';
 
 const app = new Koa();
 
-initLoad(app);
+(async function load() {
+  await initLoad(app);
+})();
 
 app.use(HomeRouter.routes());
 
@@ -31,7 +34,7 @@ app.use(HomeRouter.allowedMethods());
   // 获取 routes
   console.log('PATH', PATH);
   console.log('Controller', Controller);
-  const routes: Array<RouteDefinition> = Reflect.getMetadata(PATH, Controller);
+  const routes: Array<RouteDefinition> = getMyPropertyDecoratorValues(Controller, PATH);
 
   routes.forEach((route: RouteDefinition) => {
     const { path, requestMethod, property } = route;

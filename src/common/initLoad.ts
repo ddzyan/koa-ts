@@ -4,12 +4,14 @@ import koaJson from 'koa-json';
 import parser from 'koa-bodyparser';
 import * as fs from 'fs';
 import * as path from 'path';
-import Router from '@koa/router';
 
 import { systemMiddleware, customMiddleware } from '../config';
 
-function customMiddlewareLoad(app: Koa) {
-  const middlewareDir = path.join(__dirname, '../middleware');
+const loadModuleByPath = (filePath?: string) =>
+  import(filePath).then((module) => (module.default ? module.default : module));
+
+async function customMiddlewareLoad(app: Koa) {
+  const middlewareDir = path.resolve(path.join(__dirname, '../middleware'));
 
   if (fs.existsSync(middlewareDir)) {
     for (const key in customMiddleware) {
@@ -17,13 +19,11 @@ function customMiddlewareLoad(app: Koa) {
         const middleware = customMiddleware[key];
 
         if (middleware.enable) {
-          const filePath = path.join(middlewareDir, `${key}.js`);
-          if (fs.statSync(filePath).isFile()) {
-            console.log('[customMiddlewareLoad]', `load ${key}`);
-            console.log(filePath);
-            const middlewareObject = require(filePath).default;
-            app.use(middlewareObject(middleware.options));
-          }
+          const filePath = path.resolve(path.join(middlewareDir, `${key}`));
+          console.log('[customMiddlewareLoad]', `load ${key}`);
+          console.log(filePath);
+          const middlewareObject = await loadModuleByPath(filePath);
+          app.use(middlewareObject(middleware.options));
         }
       }
     }
@@ -73,7 +73,7 @@ function controllerLoad() {
   //   });
 }
 
-export default function initLoad(app: Koa) {
+export default async function initLoad(app: Koa) {
   systemMiddlewareLoad(app);
-  customMiddlewareLoad(app);
+  await customMiddlewareLoad(app);
 }
