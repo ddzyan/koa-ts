@@ -29,8 +29,10 @@ app.use(HomeRouter.allowedMethods());
   console.log('prefix', prefix);
 
   // 获取 routes
+  console.log('PATH', PATH);
+  console.log('Controller', Controller);
   const routes: Array<RouteDefinition> = Reflect.getMetadata(PATH, Controller);
-  console.log(routes);
+
   routes.forEach((route: RouteDefinition) => {
     const { path, requestMethod, property } = route;
     const url = prefix + path;
