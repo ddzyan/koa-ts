@@ -4,6 +4,7 @@ import koaJson from 'koa-json';
 import parser from 'koa-bodyparser';
 import * as fs from 'fs';
 import * as path from 'path';
+import Router from '@koa/router';
 
 import { systemMiddleware, customMiddleware } from '../config';
 
@@ -58,6 +59,18 @@ function systemMiddlewareLoad(app: Koa) {
     console.log('[systemMiddlewareLoad] koa-json');
     app.use(koaJson());
   }
+}
+
+function controllerLoad() {
+  // 定义扩展名
+  // const extname = '.{js,ts}';
+  // const modules = [];
+  // fs.readdirSync(path.join(__dirname, '../controller'))
+  //   .filter((file) => file.indexOf('.ts') !== 0 || file.indexOf('.js') !== 0)
+  //   .forEach((file) => {
+  //     const fileName = file.split('.')[0];
+  //     modules.push = require(path.join(__dirname, file));
+  //   });
 }
 
 export default function initLoad(app: Koa) {

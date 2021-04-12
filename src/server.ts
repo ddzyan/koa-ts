@@ -19,18 +19,15 @@ app.use(HomeRouter.routes());
 
 app.use(HomeRouter.allowedMethods());
 
-app.listen(server.port, server.hostname, () => {
-  console.log(`Listening on ${server.port}`);
-});
-
 [CatsController].forEach((Controller) => {
+  console.log('Controller', Controller);
   const router = new Router();
 
   const instance = new Controller();
   // 获取 prefix
   const prefix = Reflect.getMetadata(PREFIX, Controller);
   console.log('prefix', prefix);
-  console.log('Controller', Controller);
+
   // 获取 routes
   const routes: Array<RouteDefinition> = Reflect.getMetadata(PATH, Controller);
   console.log(routes);
@@ -41,6 +38,10 @@ app.listen(server.port, server.hostname, () => {
       instance[property](ctx, next);
     });
   });
+});
+
+app.listen(server.port, server.hostname, () => {
+  console.log(`Listening on ${server.port}`);
 });
 
 export default app;
