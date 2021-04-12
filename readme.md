@@ -1,13 +1,14 @@
 ## 简介
 
-使用 ts + koa2 上完成服务端功能开发
+使用 ts + koa2 + 装饰器 完成服务端功能开发
 
-### 完成功能
+## 完成功能
 
 1. ts + koa 基础框架搭建和配置
 2. 中间件根据配置文件，自动化热加载
+3. 增加 controller，router 装饰器，实现通过装饰器配置路由地址
 
-### 使用
+## 使用
 
 ```sh
 git clone https://github.com/ddzyan/koa-ts.git

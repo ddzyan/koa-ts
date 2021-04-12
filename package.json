@@ -16,7 +16,8 @@
     "koa": "^2.13.0",
     "koa-body": "^4.2.0",
     "koa-bodyparser": "^4.3.0",
-    "koa-json": "^2.0.2"
+    "koa-json": "^2.0.2",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@types/koa": "^2.11.3",

@@ -11,7 +11,7 @@ const db = {
     },
   },
   mysql: {
-    enable: true,
+    enable: false,
     options: {
       username: 'test',
       password: '123456',
