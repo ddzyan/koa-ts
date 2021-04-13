@@ -6,6 +6,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import Router from '@koa/router';
 
+import { RouteDefinition, PATH, PREFIX } from '../decorator/RouteDefinition';
 import { systemMiddleware, customMiddleware } from '../config';
 
 function customMiddlewareLoad(app: Koa) {
@@ -61,19 +62,44 @@ function systemMiddlewareLoad(app: Koa) {
   }
 }
 
-function controllerLoad() {
-  // 定义扩展名
-  // const extname = '.{js,ts}';
-  // const modules = [];
-  // fs.readdirSync(path.join(__dirname, '../controller'))
-  //   .filter((file) => file.indexOf('.ts') !== 0 || file.indexOf('.js') !== 0)
-  //   .forEach((file) => {
-  //     const fileName = file.split('.')[0];
-  //     modules.push = require(path.join(__dirname, file));
-  //   });
+function controllerLoad(app: Koa) {
+  const modules: Array<any> = [];
+  const basePath = path.join(__dirname, '../controller');
+  fs.readdirSync(basePath)
+    .filter((file) => file.indexOf('.js') !== -1 && file.indexOf('.map') === -1)
+    .forEach((file) => {
+      const fileName = file.split('.')[0];
+      modules.push(path.join(basePath, file));
+    });
+  for (const controllerPath of modules) {
+    const { default: controller } = require(controllerPath);
+    const router = addRouter(controller);
+    app.use(router.routes());
+  }
+}
+
+function addRouter(Controller: any): Router {
+  const router = new Router();
+
+  const instance = new Controller();
+  // 获取 prefix
+  const prefix = Reflect.getMetadata(PREFIX, Controller);
+
+  const routes: Array<RouteDefinition> = Reflect.getMetadata(PATH, instance);
+
+  routes.forEach((route: RouteDefinition) => {
+    const { path, requestMethod, property } = route;
+    const url = prefix + path;
+    router[requestMethod](url, (ctx: Context, next: Next) => {
+      instance[property](ctx, next);
+    });
+  });
+
+  return router;
 }
 
 export default function initLoad(app: Koa) {
   systemMiddlewareLoad(app);
   customMiddlewareLoad(app);
+  controllerLoad(app);
 }

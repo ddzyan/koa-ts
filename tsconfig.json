@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["node"],
     "module": "commonjs",
     "esModuleInterop": true,
     "target": "es2017",
@@ -11,7 +12,8 @@
     "paths": {
       "*": ["node_modules/*", "src/types/*"]
     },
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["src/**/*"]
 }
