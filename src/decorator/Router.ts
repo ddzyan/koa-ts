@@ -1,4 +1,4 @@
-// 实现 Get 装饰器
+// 实现 Router 装饰器，此装饰器直接使用在 class 内部方法上
 import { RouteDefinition, METHODS, PATH } from './RouteDefinition';
 
 export function Route(path: string, method: METHODS): MethodDecorator {
@@ -11,9 +11,7 @@ export function Route(path: string, method: METHODS): MethodDecorator {
       path,
       property,
     });
-    console.log('target', target);
     // 重新复制 routes 属性到目标对象上
     Reflect.defineMetadata(PATH, routes, target);
-    console.log(Reflect.getMetadata(PATH, target));
   };
 }

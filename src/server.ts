@@ -20,18 +20,13 @@ app.use(HomeRouter.routes());
 app.use(HomeRouter.allowedMethods());
 
 [CatsController].forEach((Controller) => {
-  console.log('Controller', Controller);
   const router = new Router();
 
   const instance = new Controller();
   // 获取 prefix
   const prefix = Reflect.getMetadata(PREFIX, Controller);
-  console.log('prefix', prefix);
 
-  // 获取 routes
-  console.log('PATH', PATH);
-  console.log('Controller', Controller);
-  const routes: Array<RouteDefinition> = Reflect.getMetadata(PATH, Controller);
+  const routes: Array<RouteDefinition> = Reflect.getMetadata(PATH, instance);
 
   routes.forEach((route: RouteDefinition) => {
     const { path, requestMethod, property } = route;
