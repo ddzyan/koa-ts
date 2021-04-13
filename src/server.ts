@@ -31,14 +31,18 @@ app.use(HomeRouter.allowedMethods());
   routes.forEach((route: RouteDefinition) => {
     const { path, requestMethod, property } = route;
     const url = prefix + path;
+    console.log(requestMethod, url, property);
+
     router[requestMethod](url, (ctx: Context, next: Next) => {
       instance[property](ctx, next);
     });
   });
+
+  app.use(router.routes());
 });
 
 app.listen(server.port, server.hostname, () => {
-  console.log(`Listening on ${server.port}`);
+  console.log(`Listening on http://127.0.0.1:${server.port}`);
 });
 
 export default app;

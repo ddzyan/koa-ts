@@ -1,16 +1,17 @@
+import { Context, Next } from 'koa';
 import { Controller } from '../decorator/Controller';
 import { GET } from '../decorator/Method';
 
 @Controller('/cats')
 class CatsController {
-  @GET('/index')
-  findAll(): string {
-    return 'This action returns all cats';
+  @GET('/all')
+  findAll(ctx: Context, next: Next): void {
+    ctx.body = 'This action returns all cats';
   }
 
   @GET('/:id')
-  findOne(): string {
-    return 'This action returns a specified cat';
+  findOne(ctx: Context, next: Next): void {
+    ctx.body = 'This action returns a specified cat';
   }
 }
 
