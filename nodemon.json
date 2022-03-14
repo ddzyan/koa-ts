@@ -1,6 +1,6 @@
 {
   "restartable": "rs",
-  "ignore": [".git", ".vscode", ".idea", "node_modules/", "test/", "src/"],
+  "ignore": [".git", ".vscode", ".idea", "node_modules/", "test/",  "src/**/*.spec.ts"],
   "verbose": true,
   "execMap": {
     "": "node",
@@ -9,7 +9,12 @@
   "events": {
     "restart": "osascript -e 'display notification \"App restarted due to:\n'$FILENAME'\" with title \"nodemon\"'"
   },
-  "watch": ["dist/"],
-  "ext": "js json",
+  "exec": "ts-node -r tsconfig-paths/register --transpile-only ./src/app.ts",
+  "watch": [
+    "src",
+    ".env"
+  ],
+  "ext": "js,ts,json",
   "legacy-watch": false
+
 }

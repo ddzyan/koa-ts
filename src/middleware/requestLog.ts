@@ -32,6 +32,13 @@ const formatError: (error: Error) => void = (error) => {
 
 const requestLog = function () {
   return async (ctx: Context, next: Next) => {
+    const { method, originalUrl } = ctx.request;
+
+    if (originalUrl === '/favicon.ico' || method === 'OPTIONS') {
+      await next();
+      return;
+    }
+
     const startTime = new Date().valueOf();
     try {
       await next();
