@@ -9,11 +9,9 @@ import { GET } from "../decorator/Method";
 class CatsController {
   @GET("/")
   async findAll(ctx: Context, next: Next): Promise<void> {
-    console.log("2");
     const userService = Container.get(UserService);
     const userList = await userService.getAll();
     ctx.body = userList;
-    console.log("3");
   }
 
   @GET("/:id")
