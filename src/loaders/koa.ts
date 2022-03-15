@@ -13,9 +13,10 @@ function customMiddlewareLoad(app: Koa) {
   const middlewareDir = path.join(__dirname, "../middleware");
 
   fs.readdirSync(middlewareDir)
-    .filter(file => file.indexOf(".ts") !== -1 || file.indexOf(".js") !== -1)
+    .filter(file => file.indexOf(".") !== -1)
     .forEach(file => {
       const filePath = path.join(middlewareDir, file);
+      console.log("[customMiddlewareLoad]", filePath);
       const middlewareObject = require(filePath).default;
       app.use(middlewareObject());
     });
@@ -89,9 +90,7 @@ function addRouter(Controller: any): Router {
   routes.forEach((route: RouteDefinition) => {
     const { path, requestMethod, property } = route;
     const url = prefix + path;
-    router[requestMethod](url, (ctx: Context, next: Next) => {
-      instance[property](ctx, next);
-    });
+    router[requestMethod](url, instance[property]);
   });
 
   return router;

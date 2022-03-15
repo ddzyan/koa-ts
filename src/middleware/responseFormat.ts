@@ -1,6 +1,6 @@
-import { Context, Next } from 'koa';
+import { Context, Next } from "koa";
 
-const responseFormat = function () {
+const responseFormat = function() {
   return async (ctx: Context, next: Next) => {
     try {
       await next();
@@ -9,17 +9,17 @@ const responseFormat = function () {
         ctx.body = {
           success: true,
           code: 1,
-          message: '',
-          data: ctx.body,
+          message: "",
+          data: ctx.body
         };
       } else {
-        ctx.body = 'not found';
+        ctx.body = "not found";
       }
     } catch (error) {
-      let message = '';
+      let message = "";
       switch (error.status) {
         case 401:
-          message = 'token 错误';
+          message = "token 错误";
           break;
 
         default:
@@ -33,7 +33,7 @@ const responseFormat = function () {
         success: false,
         code: -1,
         message,
-        data: {},
+        data: {}
       };
       throw error; // 继续抛出错误，由上层处理
     }

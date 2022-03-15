@@ -13,12 +13,12 @@ export default {
   port: parseInt(process.env.PORT, 10),
   sequelize: {
     username: "root",
-    password: "123456",
+    password: "B9tiNZ7dXrk2qwr6",
     database: "test",
     options: {
       dialect: "mysql",
       host: "127.0.0.1",
-      port: 3306,
+      port: 13306,
       timezone: "+08:00",
       query: {
         raw: true
@@ -36,7 +36,7 @@ export default {
         idle: 30000
       },
       define: {
-        underscored: false,
+        underscored: true,
         freezeTableName: true,
         charset: "utf8mb4",
         engine: "innodb",

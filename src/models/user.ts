@@ -1,8 +1,8 @@
 import moment from "moment";
 
 module.exports = (sequelize, DataTypes) => {
-  const admin = sequelize.define(
-    "Admin",
+  const user = sequelize.define(
+    "User",
     {
       id: {
         type: DataTypes.BIGINT(10).UNSIGNED,
@@ -11,15 +11,25 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         comment: "主键"
       },
-      username: {
-        type: DataTypes.STRING(12),
+      firstName: {
+        type: DataTypes.STRING(20),
         allowNull: false,
-        comment: "用户名称"
+        comment: "姓"
       },
-      password: {
-        type: DataTypes.STRING(12),
+      lastName: {
+        type: DataTypes.STRING(20),
         allowNull: false,
-        comment: "密码"
+        comment: "名"
+      },
+      number: {
+        type: DataTypes.STRING(32),
+        allowNull: false,
+        comment: "学号"
+      },
+      classroomId: {
+        type: DataTypes.BIGINT(10).UNSIGNED,
+        allowNull: false,
+        comment: "学号"
       },
       createdAt: {
         type: DataTypes.DATE,
@@ -48,9 +58,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       timestamps: false,
-      tableName: "admin"
+      tableName: "user"
     }
   );
 
-  return admin;
+  return user;
 };

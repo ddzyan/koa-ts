@@ -1,16 +1,19 @@
 import { Context, Next } from "koa";
 import { Container } from "typedi";
 
-import CatService from "../services/cat";
+import UserService from "../services/user";
 import { Controller } from "../decorator/Controller";
 import { GET } from "../decorator/Method";
 
-@Controller("/cats")
+@Controller("/user")
 class CatsController {
-  @GET("/all")
-  findAll(ctx: Context, next: Next): void {
-    const catService = Container.get(CatService);
-    ctx.body = catService.getAll();
+  @GET("/")
+  async findAll(ctx: Context, next: Next): Promise<void> {
+    console.log("2");
+    const userService = Container.get(UserService);
+    const userList = await userService.getAll();
+    ctx.body = userList;
+    console.log("3");
   }
 
   @GET("/:id")

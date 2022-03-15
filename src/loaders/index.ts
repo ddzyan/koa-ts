@@ -6,7 +6,8 @@ import koaLoader from "./koa";
 import "./events";
 
 export default async (app: Koa) => {
-  await Promise.race([koaLoader(app), dependencyInjectorLoader(db)]);
+  koaLoader(app);
+  await dependencyInjectorLoader(db);
 
   console.info("✌️ koa loaded");
 };
