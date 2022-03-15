@@ -12,13 +12,13 @@ if (envFound.error) {
 export default {
   port: parseInt(process.env.PORT, 10),
   sequelize: {
-    username: "root",
-    password: "B9tiNZ7dXrk2qwr6",
-    database: "test",
+    username: process.env.MYSQL_USERNAME,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE,
     options: {
       dialect: "mysql",
-      host: "127.0.0.1",
-      port: 13306,
+      host: process.env.MYSQL_HOST,
+      port: process.env.MYSQL_PORT,
       timezone: "+08:00",
       query: {
         raw: true

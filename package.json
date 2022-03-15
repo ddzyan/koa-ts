@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon",
-    "inspect": "nodemon --inspect src/app.ts",
+    "dev": "nodemon --inspect src/app.ts",
     "build": "tsc",
     "watch-ts": "rimraf ./dist && tsc -w"
   },
