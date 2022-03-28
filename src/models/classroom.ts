@@ -1,8 +1,8 @@
 import moment from "moment";
 
 module.exports = (sequelize, DataTypes) => {
-  const user = sequelize.define(
-    "User",
+  const classroom = sequelize.define(
+    "Classroom",
     {
       id: {
         type: DataTypes.BIGINT(10).UNSIGNED,
@@ -11,25 +11,15 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         comment: "主键"
       },
-      firstName: {
-        type: DataTypes.STRING(20),
+      grade: {
+        type: DataTypes.TINYINT(3).UNSIGNED,
         allowNull: false,
-        comment: "姓"
+        comment: "年段"
       },
-      lastName: {
-        type: DataTypes.STRING(20),
+      prom: {
+        type: DataTypes.TINYINT(3).UNSIGNED,
         allowNull: false,
-        comment: "名"
-      },
-      number: {
-        type: DataTypes.STRING(32),
-        allowNull: false,
-        comment: "学号"
-      },
-      classroomId: {
-        type: DataTypes.BIGINT(10).UNSIGNED,
-        allowNull: false,
-        comment: "学号"
+        comment: "班级"
       },
       createdAt: {
         type: DataTypes.DATE,
@@ -58,23 +48,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       timestamps: false,
-      tableName: "user"
+      tableName: "Classroom"
     }
   );
 
-  user.associate = db => {
-    // 每个学生属于一个班级
-    user.belongsTo(db.Classroom, {
-      // This creates a foreign key called `classroomId` in the source model (user)
-      foreignKey: "classroomId",
-      // which references the `name` field from the target model (Captain).
-      targetKey: "id"
-    });
-    // db.Classroom.hasMany(user, {
-    //   foreignKey: "id",
-    //   targetKey: "classroomId"
-    // });
-  };
-
-  return user;
+  return classroom;
 };

@@ -1,6 +1,5 @@
 import { Context, Next } from "koa";
 import { Container } from "typedi";
-
 import UserService from "../services/user";
 import { Controller } from "../decorator/Controller";
 import { GET } from "../decorator/Method";
@@ -15,8 +14,11 @@ class CatsController {
   }
 
   @GET("/:id")
-  findOne(ctx: Context, next: Next): void {
-    ctx.body = "This action returns a specified cat";
+  async findOne(ctx: Context, next: Next) {
+    const { id } = ctx.request.params;
+    const userService = Container.get(UserService);
+    const userInfo = await userService.getUserById(Number.parseInt(id));
+    ctx.body = userInfo || {};
   }
 }
 
