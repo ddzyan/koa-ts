@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
             .utcOffset(480)
             .format("YYYY-MM-DD HH:mm:ss");
         },
-        comment: "创建时间"
+        comment: "更新时间"
       }
     },
     {
