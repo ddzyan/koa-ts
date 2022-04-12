@@ -20,8 +20,7 @@ export default class UserService {
         }
       ],
       raw: true,
-      nest: true,
-      logging: true
+      nest: true
     });
     return userInfo;
   }
